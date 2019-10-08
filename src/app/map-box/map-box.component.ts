@@ -2,6 +2,10 @@ import { Component, OnInit } from '@angular/core';
 import * as mapboxgl from 'mapbox-gl';
 import { MapService } from '../map.service';
 import { GeoJson, FeatureCollection } from '../map';
+import { Observable } from 'rxjs';
+// import { Observable } from 'rxjs/Observable'; 
+// import { FirebaseListObservable } from '@angular/fire/database';
+import { FirebaseListObservable } from 'angularfire2/database';
 
 
 @Component({
@@ -20,13 +24,17 @@ export class MapBoxComponent implements OnInit{
 
   // data
   source: any;
-  markers: any;
+  // markers: any;
+  markers: FirebaseListObservable<any>;
+
+  // var function markers():any Observable<any[]>;
 
   constructor(private mapService: MapService) {
   }
 
   ngOnInit() {
-    this.markers = this.mapService.getMarkers()
+    this.markers = this.mapService.getMarkers();
+    console.log('MARKERS : ' , this.markers);
     this.initializeMap()
   }
 
